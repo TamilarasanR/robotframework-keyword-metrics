@@ -17,11 +17,13 @@ Aim of this project is to create HTML report based on robot framework output.xml
 5. Execute keyword_performance_metrics_executer.bat file
 6. "Keywords Performance Metrics Report" will be opened in new chrome tab
  
+ 
+ 
 Intention of project is to help the guys who are monitoring there keywords performance
 
  - Checkout the project.
  - Try within your project.
  - Suggest your feedback/queries
- - Lets improve this report together
+ - Let us improve this report together
 
 ** I want to check this report with larger automation suites (50 + test cases). To verify how the report behaves? and How table sorting works?
