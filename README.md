@@ -17,7 +17,9 @@ Aim of this project is to create HTML report based on robot framework output.xml
 5. Execute keyword_performance_metrics_executer.bat file
 6. "Keywords Performance Metrics Report" will be opened in new chrome tab
  
+ Sample Report (Marked deviation in keyword performance in different test)
  
+ ![Screenshot](Keyword_Performance_Metric_Report.PNG)
  
 Intention of project is to help the guys who are monitoring there keywords performance
 
