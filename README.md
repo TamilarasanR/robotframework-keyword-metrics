@@ -4,9 +4,9 @@ Aim of this project is to create HTML report based on robot framework output.xml
 
 *How it Works:*
 
-1. Uses simple python code to read output.xml file (which will be created after script execution)
+1. Read output.xml file (which will be created after script execution)
 2. Get Test Case Name (test tag) , Keyword Name (kw tag) , Start Time, End Time (status tag) values from output.xml file
-3. Convert data to html report using Beautifulsoap (Table format with sorting capability)
+3. Convert data to html report using Beautifulsoap (Tabular format with sorting | pagination | search feasibility )
 
 *How to use in project:*
 
@@ -17,10 +17,14 @@ Aim of this project is to create HTML report based on robot framework output.xml
 5. Execute keyword_performance_metrics_executer.bat file
 6. "Keywords Performance Metrics Report" will be opened in new chrome tab
  
- Sample Report (Marked deviation in keyword performance in different test)
+ Sample Report:(Tabular format with sorting | pagination | search feasibility )
  
  ![Screenshot](Keyword_Performance_Metric_Report.PNG)
  
+*How to Ignore Library Keywords in metrics*
+In __keyword_performance_metrics_report_creator.py__ file add library for tuple.
+    variable: 'ignore_library'
+
 Intention of project is to help the guys who are monitoring there keywords performance
 
  - Checkout the project.
