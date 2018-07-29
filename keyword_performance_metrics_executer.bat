@@ -1,4 +1,4 @@
-rem Convert rflint result log to .html
+rem Execute python file to generate html report
 python keyword_performance_metrics_report_creator.py & 
 
 rem Open chrome with result
