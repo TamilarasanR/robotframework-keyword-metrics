@@ -12,7 +12,7 @@ ignore_library = [
     'DateTime',
     ]
 
-soup = BeautifulSoup('''<html><head><title>Keywords Performace Metrics Report</title></head></html>''',"html.parser")
+soup = BeautifulSoup('''<html><head><title>Keywords Performance Metrics Report</title></head></html>''',"html.parser")
 
 # Convert output.html to "Keywords Performance Analysis Report"
 # Ref Table Style: http://tablesorter.com/docs/example-pager.html
@@ -94,7 +94,7 @@ soup.insert(1, body)
 
 # Create header tag and title
 h1 = soup.new_tag('h1',style="display: block;font-size: 2.5em;")
-h1.string = "Keywords Performace Metrics Report"
+h1.string = "Keywords Performance Metrics Report"
 body.insert(0, h1)
 
 br = soup.new_tag('br')
@@ -115,7 +115,7 @@ current_path = os.getcwd()
 # output.xml file location
 text_file = os.path.join(os.path.curdir, 'output.xml')
 # performance report result file location
-result_file = os.path.join(os.path.curdir, 'keyword_performace_metrics_result.html')
+result_file = os.path.join(os.path.curdir, 'keyword_performance_metrics_result.html')
 
 # Create table tag
 # <table id="myTable">
