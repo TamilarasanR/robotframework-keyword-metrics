@@ -19,11 +19,10 @@ Aim of this project is to create HTML report based on robot framework output.xml
  
  Sample Report:(Tabular format with sorting | pagination | search feasibility )
  
- ![Screenshot](Keyword_Performance_Metric_Report.PNG)
+ ![Screenshot](Report.PNG)
  
 *How to Ignore Library Keywords in metrics*
-In __keyword_performance_metrics_report_creator.py__ file add library for tuple.
-    variable: 'ignore_library'
+ - In __keyword_performance_metrics_report_creator.py__ file add library for tuple i.e., variable: 'ignore_library'
 
 Intention of project is to help the guys who are monitoring there keywords performance
 
