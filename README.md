@@ -23,15 +23,15 @@ Aim of this project is to create HTML report based on robot framework output.xml
  
 *How to Ignore Library Keywords in metrics*
  - In __keyword_performance_metrics_report_creator.py__ file add library to ignore for tuple:'ignore_library'
- - * In this report keyword with type vale 'for' and 'foritem' are ignored
+ - * In this report keyword with type value 'for' and 'foritem' are ignored
  - * Following library keyword are ignored in metrics
-    ignore_library = [
-        'BuiltIn',
-        'SeleniumLibrary',
-        'String',
-        'Collections',
-        'DateTime',
-    ]
+ ```ignore_library = [
+     'BuiltIn',
+     'SeleniumLibrary',
+     'String',
+     'Collections',
+     'DateTime',
+    ] ```
 
 Intention of project is to help the guys who are monitoring there keywords performance
 
