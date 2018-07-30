@@ -6,7 +6,7 @@ Aim of this project is to create HTML report based on robot framework output.xml
 
 1. Read output.xml file (which will be created after script execution)
 2. Get Test Case Name (test tag) , Keyword Name (kw tag) , Start Time, End Time (status tag) values from output.xml file
-3. Convert data to html report using Beautifulsoap (Tabular format with sorting | pagination | search feasibility )
+3. Convert data to html report using Beautifulsoap (Tabular format with sorting | pagination | search entire table | sort in search result)
 
 *How to use in project:*
 
@@ -17,14 +17,14 @@ Aim of this project is to create HTML report based on robot framework output.xml
 5. Execute keyword_performance_metrics_executer.bat file
 6. "Keywords Performance Metrics Report" will be opened in new chrome tab
  
- Sample Report:(Tabular format with sorting | pagination | search feasibility )
+ Sample Report:(Tabular format with sorting | pagination | search entire table | sort in search result )
  
- ![Screenshot](Keyword_Metrics.PNG)
- 
+ ![Screenshot](Keywords_Performance_Metrics.PNG)
+
 *How to Ignore Library Keywords in metrics*
  - In __keyword_performance_metrics_report_creator.py__ file add library to ignore for tuple:'ignore_library'
- - * In this report keyword with type value 'for' and 'foritem' are ignored
- - * Following library keyword are ignored in metrics
+ - In this report keywords with type value 'for' and 'foritem' are ignored
+ - Following library keywords are ignored in metrics
     ```
     ignore_library = [
      'BuiltIn',
