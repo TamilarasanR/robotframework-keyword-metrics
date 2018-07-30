@@ -15,7 +15,7 @@ ignore_library = [
 soup = BeautifulSoup('''<html><head><title>Keywords Performance Metrics Report</title></head></html>''',"html.parser")
 
 # Convert output.html to "Keywords Performance Analysis Report"
-# Ref Table Style: http://tablesorter.com/docs/example-pager.html
+# Ref Table Style: https://datatables.net/examples/styling/bootstrap
 
 # Create meta tag
 metatag = soup.new_tag('meta')
@@ -25,65 +25,37 @@ soup.head.append(metatag)
 # Create link tag - responsive table
 link = soup.new_tag('link')
 link.attrs["rel"] = "stylesheet"
-link.attrs["href"] = "http://tablesorter.com/docs/css/jq.css"
+link.attrs["href"] = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 link.attrs["type"] = "text/css"
 soup.head.append(link)
 
 link = soup.new_tag('link')
 link.attrs["rel"] = "stylesheet"
-link.attrs["href"] = "http://tablesorter.com/themes/blue/style.css"
+link.attrs["href"] = "https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css"
 link.attrs["type"] = "text/css"
 soup.head.append(link)
 
 #JQuery
 script = soup.new_tag('script')
 script.attrs["type"] = "text/javascript"
-script.attrs["src"] = "https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"
+script.attrs["src"] = "https://code.jquery.com/jquery-3.3.1.js"
 soup.head.append(script)
 
-# Create script tag - responsive table sorter js
+# Create script tag - Data Table Js
 script = soup.new_tag('script')
 script.attrs["type"] = "text/javascript"
-script.attrs["src"] = "https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.30.7/js/jquery.tablesorter.js"
-soup.head.append(script)
-
-# table pager js
-script = soup.new_tag('script')
-script.attrs["type"] = "text/javascript"
-script.attrs["src"] = "http://tablesorter.com/addons/pager/jquery.tablesorter.pager.js"
-soup.head.append(script)
-
-# Selection highlighter js
-script = soup.new_tag('script')
-script.attrs["type"] = "text/javascript"
-script.attrs["src"] = "js/chili/chili-1.8b.js"
+script.attrs["src"] = "https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"
 soup.head.append(script)
 
 script = soup.new_tag('script')
 script.attrs["type"] = "text/javascript"
-script.attrs["src"] = "js/docs.js"
+script.attrs["src"] = "https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"
 soup.head.append(script)
 
-# Sorting script js
-script_text = """$(function() {
-	$("table")
-		.tablesorter({widthFixed: true, widgets: ['zebra']})
-		.tablesorterPager({container: $("#pager")});
-	});"""
-script = soup.new_tag('script')
-script.attrs["type"] = "text/javascript"
-script.string = script_text
-soup.head.append(script)
-
-# search script js
-script_text = """$(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-  });
-});"""
+# datatable script js
+script_text = """ $(document).ready(function() {
+    $('#example').DataTable();
+} );"""
 script = soup.new_tag('script')
 script.attrs["type"] = "text/javascript"
 script.string = script_text
@@ -93,22 +65,12 @@ body = soup.new_tag('body',style="font-family: Consolas,\"courier new\";padding:
 soup.insert(1, body)
 
 # Create header tag and title
-h1 = soup.new_tag('h1',style="display: block;font-size: 2.5em;")
+h1 = soup.new_tag('h1',style="font-size: 2em;font-weight:bold")
 h1.string = "Keywords Performance Metrics Report"
 body.insert(0, h1)
 
 br = soup.new_tag('br')
-body.insert(1, br)
-
-# search in current page
-input = soup.new_tag('input')
-input["id"] = "myInput"
-input["type"] = "text"
-input["placeholder"] = "Search within page..."
-body.insert(2, input)
-
-br = soup.new_tag('br')
-body.insert(3, br)
+body.insert(1,br)
 
 # Get report result - OS independent
 current_path = os.getcwd()
@@ -119,10 +81,10 @@ result_file = os.path.join(os.path.curdir, 'keyword_performance_metrics_result.h
 
 # Create table tag
 # <table id="myTable">
-table = soup.new_tag('table',style="padding: 10px")
-table["id"] = "myTable"
-table["class"] = "tablesorter"
-body.insert(4, table)
+table = soup.new_tag('table',style="padding: 5px;font-size: 13px;")
+table["id"] = "example"
+table["class"] = "table table-striped table-bordered"
+body.insert(2, table)
 
 thead = soup.new_tag('thead')
 table.insert(0, thead)
@@ -131,27 +93,22 @@ tr = soup.new_tag('tr')
 thead.insert(0, tr)
 
 th = soup.new_tag('th')
-th["class"] = "header"
 th.string = "Test Case"
 tr.insert(0, th)
 
 th = soup.new_tag('th')
-th["class"] = "header"
 th.string = "Keyword"
 tr.insert(1, th)
 
 th = soup.new_tag('th')
-th["class"] = "header"
 th.string = "Start Time"
 tr.insert(2, th)
 
 th = soup.new_tag('th')
-th["class"] = "header"
 th.string = "End time"
 tr.insert(3, th)
 
 th = soup.new_tag('th')
-th["class"] = "header"
 th.string = "Elapsed Time"
 tr.insert(4, th)
 
@@ -220,80 +177,6 @@ for tests in results.find_all("test"):
                 table_td = soup.new_tag('td')
                 table_td.string = str(duration)
                 table_tr.insert(4, table_td)
-
-
-div = soup.new_tag('div',style="padding:25px;")
-div["id"] = "pager"
-div["class"] = "pager"
-body.insert(5, div)
-
-form = soup.new_tag('form')
-div.insert(0, form)
-
-img = soup.new_tag('img')
-img["src"] = "http://tablesorter.com/addons/pager/icons/first.png"
-img["class"] = "first"
-form.insert(0, img)
-
-img = soup.new_tag('img')
-img["src"] = "http://tablesorter.com/addons/pager/icons/prev.png"
-img["class"] = "prev"
-form.insert(1, img)
-
-input = soup.new_tag('input')
-input["type"] = "text"
-input["class"] = "pagedisplay"
-form.insert(2, input)
-
-img = soup.new_tag('img')
-img["src"] = "http://tablesorter.com/addons/pager/icons/next.png"
-img["class"] = "next"
-form.insert(3, img)
-
-img = soup.new_tag('img')
-img["src"] = "http://tablesorter.com/addons/pager/icons/last.png"
-img["class"] = "last"
-form.insert(4, img)
-
-select = soup.new_tag('select')
-select["class"] = "pagesize"
-form.insert(5, select)
-
-option = soup.new_tag('option')
-option["selected"] = "selected"
-option["value"] = "10"
-option.string = "10"
-select.insert(0, option)
-
-option = soup.new_tag('option')
-option["value"] = "25"
-option.string = "25"
-select.insert(1, option)
-
-option = soup.new_tag('option')
-option["value"] = "50"
-option.string = "50"
-select.insert(2, option)
-
-option = soup.new_tag('option')
-option["value"] = "75"
-option.string = "75"
-select.insert(3, option)
-
-option = soup.new_tag('option')
-option["value"] = "100"
-option.string = "100"
-select.insert(4, option)
-
-option = soup.new_tag('option')
-option["value"] = "500"
-option.string = "500"
-select.insert(5, option)
-
-option = soup.new_tag('option')
-option["value"] = "1000"
-option.string = "1000"
-select.insert(6, option)
 
 # Write output as html file
 with open(result_file, 'w') as outfile:
