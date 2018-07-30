@@ -104,7 +104,7 @@ body.insert(1, br)
 input = soup.new_tag('input')
 input["id"] = "myInput"
 input["type"] = "text"
-input["placeholder"] = "Search for text within page..."
+input["placeholder"] = "Search within page..."
 body.insert(2, input)
 
 br = soup.new_tag('br')
@@ -142,8 +142,18 @@ tr.insert(1, th)
 
 th = soup.new_tag('th')
 th["class"] = "header"
-th.string = "Keyword Duration"
+th.string = "Start Time"
 tr.insert(2, th)
+
+th = soup.new_tag('th')
+th["class"] = "header"
+th.string = "End time"
+tr.insert(3, th)
+
+th = soup.new_tag('th')
+th["class"] = "header"
+th.string = "Elapsed Time"
+tr.insert(4, th)
 
 tbody = soup.new_tag('tbody')
 table.insert(1, tbody)
@@ -194,13 +204,22 @@ for tests in results.find_all("test"):
 
                 for status in keywords.find_all("status"):
                     # Get duration took by keyword
-                    start_date = datetime.datetime.strptime(status['starttime'], "%Y%m%d %H:%M:%S.%f")
-                    end_date = datetime.datetime.strptime(status['endtime'], "%Y%m%d %H:%M:%S.%f")
-                    duration = end_date - start_date
+                    start_time = datetime.datetime.strptime(status['starttime'], "%Y%m%d %H:%M:%S.%f")
+                    end_time = datetime.datetime.strptime(status['endtime'], "%Y%m%d %H:%M:%S.%f")
+                    
+                table_td = soup.new_tag('td')
+                table_td.string = str(start_time)
+                table_tr.insert(2, table_td)
+
+                table_td = soup.new_tag('td')
+                table_td.string = str(end_time)
+                table_tr.insert(3, table_td)
+
+                duration = end_time - start_time
 
                 table_td = soup.new_tag('td')
                 table_td.string = str(duration)
-                table_tr.insert(2, table_td)
+                table_tr.insert(4, table_td)
 
 
 div = soup.new_tag('div',style="padding:25px;")
