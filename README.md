@@ -1,5 +1,9 @@
 # Keywords Performance Metrics Report in Robot Framework
 
+## New Performance Report Repo Link : https://github.com/adiralashiva8/robotframework-metrics
+ 
+### No more updates in this project
+
 Aim of this project is to create HTML report based on robot framework output.xml (To analyze time took by each keyword in entire suite|test execution)
 
 *How it Works:*
