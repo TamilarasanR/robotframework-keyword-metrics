@@ -221,12 +221,12 @@ dashboard_content="""
   <hr>
         <div class="w3-row-padding w3-margin-bottom">
         <div class="w3-quarter col-sm-3">
-        <div class="w3-container w3-teal w3-padding-8">
+        <div class="w3-container w3-brown w3-padding-8">
             <div class="w3-clear">
-            <h3 class="text-center" style="font-size:25px"><b>Keywords</b></h3>
+            <h3 class="text-center" style="font-size:25px"><b>Keyword</b></h3>
             </div>
             <div class="w3-left"></div>
-            <h4><br></h4>
+            <h4 style="font-size:13px" class="text-center">Statistics</h4>
             </div>
         </div>
         <div class="w3-quarter col-sm-3">
