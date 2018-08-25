@@ -221,7 +221,7 @@ dashboard_content="""
   <hr>
         <div class="w3-row-padding w3-margin-bottom">
         <div class="w3-quarter col-sm-3">
-        <div class="w3-container w3-brown w3-padding-8">
+        <div class="w3-container w3-dark-gray w3-padding-8">
             <div class="w3-clear">
             <h3 class="text-center" style="font-size:25px"><b>Keyword</b></h3>
             </div>

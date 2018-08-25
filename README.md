@@ -34,7 +34,7 @@ Creates HTML Keyword metrics report based on robotframework output.xml
 
  __DASHBOARD__
 
-![Screenshot](Keyword_Dashboard.JPG)
+![Screenshot](Keyword_Metrics_New_Dashboard.JPG)
 
 __KEYWORD METRICS__
 
