@@ -1,39 +1,21 @@
+# Contributing
 
-# Description
+We love contributions from everyone.
+By participating in this project,
+you agree to [code of conduct].
 
-Please include a summary of the change and which issue is fixed. Please also include relevant motivation and context. List any dependencies that are required for this change.
+We expect everyone to follow the code of conduct
 
-Fixes # (issue)
+## Contributing Code
 
-## Type of change
+Mention how your changes affect the project to other developers and users in the
+`NEWS.md` file.
 
-Please delete options that are not relevant.
+Push to your fork. Write a [good commit message][commit]. Submit a pull request.
 
-- [ ] Bug fix (non-breaking change which fixes an issue)
-- [ ] New feature (non-breaking change which adds functionality)
-- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
-- [ ] This change requires a documentation update
+  [commit]: http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
 
-# How Has This Been Tested?
-
-Please describe the tests that you ran to verify your changes. Provide instructions so we can reproduce. Please also list any relevant details for your test configuration
-
-- [ ] Test A
-- [ ] Test B
-
-**Test Configuration**:
-* Firmware version:
-* Hardware:
-* Toolchain:
-* SDK:
-
-# Checklist:
-
-- [ ] My code follows the style guidelines of this project
-- [ ] I have performed a self-review of my own code
-- [ ] I have commented my code, particularly in hard-to-understand areas
-- [ ] I have made corresponding changes to the documentation
-- [ ] My changes generate no new warnings
-- [ ] I have added tests that prove my fix is effective or that my feature works
-- [ ] New and existing unit tests pass locally with my changes
-- [ ] Any dependent changes have been merged and published in downstream modules
+Others will give constructive feedback.
+This is a time for discussion and improvements,
+and making the necessary changes will be required before we can
+merge the contribution.
