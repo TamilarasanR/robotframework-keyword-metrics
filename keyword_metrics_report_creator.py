@@ -259,8 +259,8 @@ dashboard_content="""
     </div>
 
     <hr>
-    <div class="col-md-5 chart-blo-1" id="keywordChartID" style="height: 350px;"></div>
-    <div class="col-md-7 chart-blo-1" id="keywordsBarID" style="height: 350px;"></div>
+    <div class="col-md-5 chart-blo-1" id="keywordChartID" style="height: 400px;"></div>
+    <div class="col-md-7 chart-blo-1" id="keywordsBarID" style="height: 400px;"></div>
    
    <script>
     window.onload = function(){
