@@ -18,7 +18,7 @@ Creates HTML Keyword metrics report based on robotframework output.xml
     ```
     git clone https://github.com/adiralashiva8/RFKeywordPerformanceMetrics.git
     ```
-2. Copy __keyword_metrics_report_creator.py__ and __keyword_metrics_executer.sh__ files to project (where output.xml file is available)
+2. Copy __keyword_metrics_report_creator.py__ and __keyword_metrics_executer.sh__ files to project (should be within project folder location)
 3. Install beautifulsoup: (to create html report - one time activity)
     ```
     pip install beautifulsoup4
