@@ -18,14 +18,24 @@ ignore_type = [
     'for',
     ]
 
-# Get report result - OS independent
-current_path = os.getcwd()
+rootdir = os.getcwd()
+
+report_file="report.html"
+output_file="output.xml"
+log_file="log.html"
+
+for subdir, dirs, files in os.walk(rootdir):
+    for file in files:
+        filepath = subdir + os.sep + file
+        if 'output' in filepath and filepath.endswith(".xml"):
+            output_file= str(filepath)
+
 # output.xml file location
-text_file = os.path.join(os.path.curdir, 'output.xml')
+#text_file = os.path.join(os.path.curdir, 'output.xml')
 # performance report result file location
 result_file = os.path.join(os.path.curdir, 'keyword_metrics_result.html')
 
-result = ExecutionResult(text_file)
+result = ExecutionResult(output_file)
 result.configure(stat_config={'suite_stat_level': 2,
                               'tag_stat_combine': 'tagANDanother'})
 
