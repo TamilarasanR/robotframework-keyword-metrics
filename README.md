@@ -24,9 +24,14 @@ Creates HTML Keyword metrics report based on robotframework output.xml
     pip install beautifulsoup4
     ```
 4. Execute __keyword_metrics_executer.sh__ file
-5. __Robotframework Keyword Metrics Report__ will be launched in new chrome tab
+5. __Robotframework Metrics Report__ will be launched in new chrome tab
 
     > Assumption __Python__ already installed in machine
+
+    If you were using latest python. Please upgrade robotframework to generate report
+        
+    > Update Robot Framework
+    ``` pip install --pre --upgrade robotframework ```
 
 ---
 
