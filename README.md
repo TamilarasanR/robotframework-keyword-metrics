@@ -16,7 +16,7 @@ Creates HTML Keyword metrics report based on robotframework output.xml
 
 *How to use in project:*
 
-1. Clone project or download here [link](https://github.com/adiralashiva8/RFKeywordPerformanceMetrics/archive/master.zip)
+1. Clone project or download here [link](https://github.com/adiralashiva8/RFKeywordPerformanceMetrics/files/2363427/RFKeywordPerformanceMetrics-master.zip)
 
     ```
     git clone https://github.com/adiralashiva8/RFKeywordPerformanceMetrics.git
