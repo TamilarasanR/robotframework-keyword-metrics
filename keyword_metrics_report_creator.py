@@ -52,7 +52,8 @@ head_content = """
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css"/>
 <script src="https://code.jquery.com/jquery-3.3.1.js" type="text/javascript"></script>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script type = "text/javascript" src = "https://www.gstatic.com/charts/loader.js"></script>
+<script type = "text/javascript">google.charts.load('current', {packages: ['corechart']});</script>
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
 <style>
@@ -139,6 +140,7 @@ body, html {
 
 #dashboard {background-color: white;}
 #keywordMetrics {background-color: white;}
+#emailStatistics {background-color: white;}
 
 </style>
 </head>
@@ -170,6 +172,10 @@ icons_txt= """
     <i class="fa fa-table w3-xxlarge"></i>
     <p>KEYWORD METRICS</p>
   </a>
+  <a href="#" onclick="openPage('statistics', this, 'orange');" class="tablink w3-bar-item w3-button w3-padding-large">
+    <i class="fa fa-envelope-o w3-xxlarge"></i>
+    <p> EMAIL STATISTICS</p>
+  </a>
 </nav>
 
 <!-- Navbar on small screens (Hidden on medium and large screens) -->
@@ -177,6 +183,7 @@ icons_txt= """
   <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
     <a href="#" id="defaultOpen" onclick="openPage('dashboard', this, 'orange')" class="tablink w3-bar-item w3-button" style="width:25% !important">DASHBOARD</a>
     <a href="#" onclick="openPage('keywordMetrics', this, 'orange');executeDataTable('#km',4)" class="tablink w3-bar-item w3-button" style="width:25% !important">KEYWORD METRICS</a>
+    <a href="#" onclick="openPage('statistics', this, 'orange');" class="tablink w3-bar-item w3-button" style="width:25% !important">EMAIL STATISTICS</a>
   </div>
 </div>
 
@@ -195,6 +202,12 @@ km_div = soup.new_tag('div')
 km_div["id"] = "keywordMetrics"
 km_div["class"] = "tabcontent"
 page_content_div.insert(150, km_div)
+
+# Statistics div
+statisitcs_div = soup.new_tag('div')
+statisitcs_div["id"] = "statistics"
+statisitcs_div["class"] = "tabcontent"
+page_content_div.insert(300, statisitcs_div)
 
 ### ============================ START OF DASHBOARD ======================================= ####
 total_keywords = 0
@@ -269,14 +282,14 @@ dashboard_content="""
     </div>
 
     <hr>
-    <div class="col-md-5 chart-blo-1" id="keywordChartID" style="height: 400px;"></div>
-    <div class="col-md-7 chart-blo-1" id="keywordsBarID" style="height: 400px;"></div>
+    <div class="col-md-12 chart-blo-1" id="keywordChartID" style="height: 400px;"></div>
+    <div class="col-md-12 chart-blo-1" id="keywordsBarID" style="height: 400px;"></div>
    
    <script>
     window.onload = function(){
     executeDataTable('#km',5);
     createPieChart(%s,%s,'keywordChartID','Keywords Status:');
-    createBarGraph('#km',1,5,10,'keywordsBarID','Top 10 Keywords Performance:')
+    createBarGraph('#km',1,5,10,'keywordsBarID','Top 10 Keywords Performance:','Keyword')
 	};
    </script>
   </div>
@@ -392,97 +405,226 @@ class KeywordResults(ResultVisitor):
 result.visit(KeywordResults())
 ### ============================ END OF KEYWORD METRICS ======================================= ####
 
+### ============================ EMAIL STATISTICS ================================== ###
+
+emailStatistics="""
+<h4><b><i class="fa fa-envelope-o"></i> Email Statistics</b></h4>
+<hr>
+<button id="create" class="btn btn-primary active" role="button" onclick="updateTextArea();this.style.visibility= 'hidden';"><i class="fa fa-cogs"></i> Generate Statistics Email</button>
+<a download="message.eml" class="btn btn-primary active" role="button" id="downloadlink" style="display: none; width: 300px;font-weight: bold;"><i class="fa fa-download"></i> Click Here To Download Email</a>
+
+<script>
+function updateTextArea() {
+    var keyword ="<b>Top 10 Keyword Performance:</b><br><br>" + $("#keywordsBarID table")[0].outerHTML;
+    var saluation="<pre><br>Please refer RF Keyword Metrics Report for detailed statistics.<br><br>Regards,<br>QA Team</pre></body></html>";
+    document.getElementById("textbox").value += "<br>" + keyword + saluation;
+    $("#create").click(function(){
+    $(this).remove();
+    });
+}
+</script>
+
+<textarea id="textbox" class="col-md-12" style="height: 400px; padding:1em;">
+To: myemail1234@email.com
+Subject: Automation Execution Status
+X-Unsent: 1
+Content-Type: text/html
+
+<html>
+   <head>
+      <style>
+         body, html, table,pre,b {
+			 font-family: Calibri, Arial, sans-serif;
+			 font-size: 1em; 
+         }
+         .pastdue { color: crimson; }
+         table {
+			 border: 1px solid silver;
+			 padding: 6px;
+			 margin-left: 30px;
+			 width: 600px;
+         }
+         thead {
+			 text-align: center;
+			 font-size: 1.1em;        
+			 background-color: #B0C4DE;
+			 font-weight: bold;
+			 color: #2D2C2C;
+         }
+         tbody {
+			text-align: center;
+         }
+         th {
+            width: 25%%;
+            word-wrap:break-word;
+         }
+      </style>
+   </head>
+   <body>
+<pre>Hi Team,
+Following are the last build execution keyword statistics.
+
+<b>Metrics:<b>
+
+</pre>
+      <table>
+         <thead>
+            <th style="width: 25%%;">Statistics</th>
+            <th style="width: 25%%;">Total</th>
+            <th style="width: 25%%;">Pass</th>
+            <th style="width: 25%%;">Fail</th>
+         </thead>
+         <tbody>
+            <tr>
+               <td style="text-align: left;font-weight: bold;"> KEYWORDS </td>
+               <td style="background-color: #F5DEB3;text-align: center;">%s</td>
+               <td style="background-color: #90EE90;text-align: center;">%s</td>
+               <td style="background-color: #F08080;text-align: center;">%s</td>
+            </tr>
+         </tbody>
+      </table>
+
+
+</textarea>
+
+""" % (total_keywords,passed_keywords,failed_keywords)
+statisitcs_div.append(BeautifulSoup(emailStatistics, 'html.parser'))
+
+### ============================ END OF EMAIL STATISTICS ================================== ###
+
 script_text="""
  <script>
+(function () {
+var textFile = null,
+  makeTextFile = function (text) {
+    var data = new Blob([text], {type: 'text/plain'});
+    if (textFile !== null) {
+      window.URL.revokeObjectURL(textFile);
+    }
+    textFile = window.URL.createObjectURL(data);
+    return textFile;
+  };
+
+  var create = document.getElementById('create'),
+    textbox = document.getElementById('textbox');
+  create.addEventListener('click', function () {
+    var link = document.getElementById('downloadlink');
+    link.href = makeTextFile(textbox.value);
+    link.style.display = 'block';
+  }, false);
+})();
+</script>
+ <script>
   function createPieChart(passed_count,failed_count,ChartID,ChartName){
+	var status = [];
+	status.push(['Status', 'Percentage']);
+	status.push(['PASS',parseInt(passed_count)],['FAIL',parseInt(failed_count)]);
+	var data = google.visualization.arrayToDataTable(status);
 
-var chart = new CanvasJS.Chart(ChartID,{  
-    exportFileName: ChartName,
-	exportEnabled: true,	
-    animationEnabled: true,
-	title: {
-    text: ChartName,
-    fontFamily: "Comic Sans MS",
-    fontSize: 15,
-	horizontalAlign: "left",
-    fontWeight: "bold"
-    
-  },
-  data: []
-  
-});
+	var options = {
+      title: ChartName,
+        titleTextStyle: {
+            fontName: 'Comic Sans MS',
+            fontSize: 15,
+            bold: true,
+        },
+	  pieHole: 0.7,
+	  legend: 'none',
+      chartArea: {width: "90%",height: "75%"},
+	  colors: ['green', 'red'],
+      annotations: {
+            alwaysOutside: true,
+            textStyle: {
+                fontName: 'Comic Sans MS',
+                fontSize: 13,
+                bold: true,
+                italic: true,
+                color: "black",     // The color of the text.
+            },
+        },
+	};
 
-var status = [{label:'PASS',y:parseInt(passed_count),color:"Green"},{label:'FAIL',y:parseInt(failed_count),color:"Red"}];
-  chart.options.data.push({
-    //type: "pie",
-    type: "doughnut",
-    startAngle: 60,
-    //innerRadius: 60,
-    indexLabelFontSize: 15,
-    indexLabel: "{label} - #percent%",
-    toolTipContent: "<b>{label}:</b> {y} (#percent%)",
-
-    //name: ($(columns[0]).html()), 
-    //showInLegend: true,
-    //legendText: ($(columns[0]).html()),
-    dataPoints: status
-  });
-  chart.render();
-}
+	var chart = new google.visualization.PieChart(document.getElementById(ChartID));
+	chart.draw(data, options);
+  }
  </script>
  <script>
-  function createBarGraph(tableID,keyword_column,time_column,limit,ChartID,ChartName){
-      var chart = new CanvasJS.Chart(ChartID, {
-       exportFileName: ChartName,
-        exportEnabled: true,	
-        animationEnabled: true,
-    title: {
-        text: ChartName,
-        fontFamily: "Comic Sans MS",
-        fontSize: 15,
-        textAlign: "centre",
-        dockInsidePlotArea: true,
-        fontWeight: "bold"
-    },
-      axisX:{
-        //title:"Axis X title",
-        labelAngle: 0,
-        labelFontSize: 10,
-        labelFontFamily:"Comic Sans MS",
-        
-      },
-      axisY:{
-        title:"Seconds (s)",
-      },
-      data: []
-    });
+  function createBarGraph(tableID,keyword_column,time_column,limit,ChartID,ChartName,type){
+		var status = [];
+		css_selector_locator = tableID + ' tbody >tr'
+		var rows = $(css_selector_locator);
+		var columns;
+		var myColors = [
+			'#4F81BC',
+            '#C0504E',
+            '#9BBB58',
+            '#24BEAA',
+            '#8064A1',
+            '#4AACC5',
+            '#F79647',
+            '#815E86',
+            '#76A032',
+            '#34558B'
+		];
+		status.push([type, 'Elapsed Time(s)',{ role: 'annotation'}, {role: 'style'}]);
+		for (var i = 0; i < rows.length; i++) {
+			if (i == Number(limit)){
+				break;
+			}
+			//status = [];
+			name_value = $(rows[i]).find('td'); 
+		  
+			time=($(name_value[Number(time_column)]).html()).trim();
+			keyword=($(name_value[Number(keyword_column)]).html()).trim();
+			status.push([keyword,parseFloat(time),parseFloat(time),myColors[i]]);
+		  }
+		  var data = google.visualization.arrayToDataTable(status);
 
-var status = [];
-css_selector_locator = tableID + ' tbody >tr'
-var rows = $(css_selector_locator);
-var columns;
+		  var options = {            
+            title: ChartName,
+            titleTextStyle: {
+                    fontName: 'Comic Sans MS',
+                    fontSize: 15,
+            },
+            legend: 'none',
+            chartArea: {width: "92%",height: "75%"},
+            bar: {
+                groupWidth: '90%'
+            },
+			annotations: {
+				alwaysOutside: true,
+                textStyle: {
+                fontName: 'Comic Sans MS',
+                fontSize: 13,
+                bold: true,
+                italic: true,
+                color: "black",     // The color of the text.
+                },
+			},
+            hAxis: {
+                textStyle: {
+                    fontName: 'Arial',
+                    fontSize: 10,
+                }
+            },
+            vAxis: {
+                format: 'decimal',
+                title: "Seconds",
+                gridlines: { count: 10 },
+                textStyle: {                    
+                    fontName: 'Comic Sans MS',
+                    fontSize: 10,
+                }
+            },
+		  };  
 
-for (var i = 0; i < rows.length; i++) {
-    if (i == Number(limit)){
-        break;
-    }
-	//status = [];
-    name_value = $(rows[i]).find('td'); 
-  
-    time=($(name_value[Number(time_column)]).html()).trim();
-	status.push({label:$(name_value[Number(keyword_column)]).html(),y:parseFloat(time)});
-  }  
-	chart.options.data.push({
-    type: "column",
-    indexLabel: "{y} s",
-    toolTipContent: "<b>{label}:</b> {y} s",
-    dataPoints: status
-  });
-  
-    chart.render();
-	}
-  </script>
- </script>
+            // Instantiate and draw the chart.
+            var chart = new google.visualization.ColumnChart(document.getElementById(ChartID));
+            chart.draw(data, options);
+         }
+         google.charts.setOnLoadCallback(drawChart);
+</script>
+
  <script>
   function executeDataTable(tabname,sortCol) {
     $(tabname).DataTable(
