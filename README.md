@@ -1,5 +1,5 @@
 
-# This project idead is draft of [Robotframework-Metrics](https://github.com/adiralashiva8/robotframework-metrics). Please refer robotframework-metrics for full features!
+# This project is draft of [Robotframework-Metrics](https://github.com/adiralashiva8/robotframework-metrics). Please refer robotframework-metrics for full features!
 
 
 # Robot Framework Keyword Metrics Report
